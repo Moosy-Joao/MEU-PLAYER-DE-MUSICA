@@ -101,12 +101,16 @@ h3{
     width: 90%;
 }
 
-.progress{
+.progress {
     background-color: #212121;
     border-radius: 5px;
     height: 100%;
     width: 0%;
-    transition: width 0.1s linear;
+    transition: width 0.1s linear, background-color 0.3s ease;
+}
+
+.progress:hover {
+    background-color: #555;
 }
 
 .music-duration{
@@ -140,4 +144,33 @@ h3{
     font-size: 44px;
     position: relative;
     top: 3px;
+}
+
+.volume-control {
+    margin: 20px auto;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.volume-control input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+
+    .player-img {
+        width: 80%;
+        height: auto;
+        left: 10%;
+    }
+
+    .player-controls {
+        left: 50px;
+    }
 }
