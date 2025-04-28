@@ -74,7 +74,7 @@ function loadMusic(song) {
 function changeMusic(direction) {
     musicIndex = (musicIndex + direction + songs.length) % songs.length;
     loadMusic(songs[musicIndex]);
-    if (isPLaying) playMusic();
+    playMusic();
 }
 
 function updateProgressBar() {
@@ -82,14 +82,9 @@ function updateProgressBar() {
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
 
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    };
-
-    durationEl.textContent = duration ? formatTime(duration) : '0:00';
-    currentTimeEl.textContent = formatTime(currentTime);
+    const formatTime = (time) => String(Math.floor(time)).padStart(2, '0');
+    durationEl.textContent = `${formatTime(duration / 60)}:${formatTime(duration % 60)}`;
+    currentTimeEl.textContent = `${formatTime(currentTime / 60)}:${formatTime(currentTime % 60)}`;
 }
 
 function setProgressBar(e) {
@@ -106,13 +101,3 @@ music.addEventListener('timeupdate', updateProgressBar);
 playerProgress.addEventListener('click', setProgressBar);
 
 loadMusic(songs[musicIndex]);
-
-const volumeControl = document.getElementById('volume');
-
-volumeControl.addEventListener('input', (e) => {
-    music.volume = e.target.value;
-});
-
-music.addEventListener('error', () => {
-    alert('Erro ao carregar a música. Verifique o arquivo.');
-});
